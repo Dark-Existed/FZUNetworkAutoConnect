@@ -31,7 +31,7 @@ def log_in(username, password, output_file):
         response = requests.post(url=url, headers=headers, params=params, data=data)
         print(response.text, file=output_file)
     except requests.exceptions.RequestException as e:
-        print(e)
+        print(e, file=output_file)
     
 
 if __name__ == '__main__':
