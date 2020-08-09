@@ -1,5 +1,9 @@
 import requests
 import time
+import os
+
+username = ''
+password = ''
 
 def is_connected():
     url = 'https://www.baidu.com/'
@@ -8,7 +12,7 @@ def is_connected():
         return True
     except:
         return False
-    
+
 
 def log_in(username, password, output_file):
     url = 'http://210.34.48.49/eportal/InterFace.do'
@@ -35,12 +39,9 @@ def log_in(username, password, output_file):
     
 
 if __name__ == '__main__':
-    output_file = open('result.txt', 'w', encoding='utf-8')
-    if not is_connected():
+    with open(os.path.join(os.getcwd(), 'connect_result.txt'), 'w', encoding='utf-8') as output_file:
         output_file.write(time.strftime("%Y-%m-%d %H:%M:%S")+'\n')
-        log_in('', '', output_file)
-        output_file.close()
-    else:
-        output_file.write(time.strftime("%Y-%m-%d %H:%M:%S")+'\n')
-        output_file.write('Everything is OK.\n')
-        output_file.close()
+        if not is_connected():
+            log_in(username, password, output_file)
+        else:
+            output_file.write('Everything is OK.\n')
